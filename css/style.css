@@ -1,0 +1,125 @@
+
+
+/* map design ////////////////////////////////////////////////////////////*/
+
+
+/* mouse position ( */
+
+.leaflet-control-mouseposition {
+  padding: 5px 5px;
+  color: grey;
+  font-size: 9px;
+  border-radius: 2px;
+  background-color: lightgrey;
+  position: bottomleft;
+  bottom: 5px;
+  right: 5px;
+}
+
+
+
+
+
+
+/* popup */
+
+.leaflet-popup-content{
+    color: white;
+    font-size: 14px;
+}
+
+.leaflet-popup-content-wrapper, .leaflet-popup-tip{
+    background: #055252 ;
+    border-radius: 5px;
+   
+    
+}
+
+
+
+.polygon-label {
+  font-size: 12px;
+  text-align: center;
+  color: rgb(24, 24, 24);
+  font-weight: bold;
+}
+
+.label-admin1 {
+  font-size: 8px;
+  text-align: center;
+  color: rgb(24, 24, 24);
+  font-style: italic;
+}
+
+
+
+  .legend {
+    background: whitesmoke;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+  }
+  .legend h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    color:black
+  }
+  .legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    color: black;
+  }
+
+
+  .legend i {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  .admin1-layer {
+    background: transparent; 
+    border: 1px dotted black;
+  }
+  
+  .admin1-layer {
+    background: transparent; 
+    border: 1px dotted black;
+  }
+  
+  .country-layer {
+    background: transparent; 
+    border: 1px solid black;
+  }
+ 
+  .road-layer {
+    background: grey; 
+  }
+ 
+/* filter buttons */
+#filter-buttons {
+  display: flex; 
+gap: 10px; 
+  margin: 10px; 
+  justify-content: center;
+}
+
+button {
+  padding: 6px 12px; 
+  background-color:#262626;
+  color: #ffffff; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+button:hover {
+  background-color: #dbdde1; 
+}
+
+button:focus {
+  outline: none; 
+}
