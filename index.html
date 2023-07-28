@@ -1,0 +1,642 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Discover Western Sahel</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+<!-- add relevant links / scripts for the map  -->
+
+<!-- bootstrap css and js -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- own style css and leaflet plugin css -->
+<link rel="stylesheet"  href="./css/style.css"/>
+<link rel="stylesheet"  href="./css/Leaflet.LinearMeasurement.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+ <link rel="stylesheet" href="./css/L.switchBasemap.css" />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+
+    <!-- other js scripts leaflet plugins -->
+
+ <script src="src/L.switchBasemap.js"></script>
+
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+<script src="src/L.Control.MousePosition.js"></script>
+<script src="src/Leaflet.LinearMeasurement.js"></script>
+
+
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+	
+<!-- template -->
+
+
+	</head>
+	<body class="landing is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html">Home</a></li>
+											<li><a href="nature.html">Protected Areas & Hydrology</a></li>
+											<li><a href="population.html">Population & Demographics</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<h2>Western Sahel</h2>
+							<p>Explore and Discover Sights and Places<br />
+							</p>
+
+						</div>
+						<a href="#one" class="more scrolly">Learn More</a>
+					</section>
+				
+				<!-- One -->
+					<section id="one" class="wrapper style1 special">
+						<div class="inner">
+							<header class="major">
+								<h2>The Western Sahel -<br />
+								Discover sites, natural wonders and protected areas </h2>
+								<p>
+					The Sahel is often described as a transition zone between the Sahara Desert and the savannas further south and passes from west to east of the African continent. For this exercise I limit myself to the Western Sahel and the countries of  Mali, Burkina Faso, Cameroon, The Gambia, Senegal, Nigeria, Niger, and Mauritania.
+								<p></p>
+								The interactive map on this page shows a selection of sights & places. <strong>Click on the icons to find out more !</strong> 
+<p> <br>
+
+</p>
+									<br /></p>
+							</header>
+						</div>
+						<div id="mapdiv" class="col-md-12">
+
+  <!-- Layer filter buttons to filter layers by country -->
+  <div id="filter-buttons">
+  </div>
+
+  <!-- add the leaflet map and all relvant map content------------------------------------------------------------------------>
+
+							<div id="map" style="height: 1000px; border: 1px solid #AAA;"></div>
+		<strong> Note: </strong>  The map makes no claim to completeness; it contains a rather random selection and is far from complete.	
+		The below text and the selection of sights and attractions serve as a template. <br>
+		<strong>Main focus during the creation of the website and maps has been on practicing visualization and web mapping skills rather than on through research </strong>.
+							
+						</div>
+					
+						<script>
+							// initialize the map
+							 var map = L.map('map').setView([12.57893, 3.9817047], 6, {
+							 fullscreenControl: true,
+							 fullscreenControlOptions: {
+							   position: 'topleft'
+						   
+							 }
+						   });	   
+
+						   // basemap plugin
+						var basemaps=   new L.basemapsSwitcher([
+							 {
+						  layer:L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+							   attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+						   }).addTo(map), //DEFAULT MAP
+							   icon: './image/world_imagery.PNG',
+							   name: 'World Imagery'
+							 },
+							 {
+						   
+							   layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+								 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							   }), //DEFAULT MAP
+							   icon: './image/img1.PNG',
+							   name: 'OSM'
+							 },
+							 {
+							
+							   layer: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+								 attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+							   }),
+							   icon: './image/topo.PNG',
+							   name: 'Topo'
+							 },
+						   ], { position: 'bottomleft' }).addTo(map);
+						   
+						   
+			// other map controls 
+
+						   map.addControl(new L.Control.Fullscreen());
+						   
+						   L.Control.geocoder().addTo(map);
+						   
+						   
+						   L.control.scale({
+							 metrie:true,
+							 imperial:false,
+						   }).addTo(map);
+						   
+							L.control.mousePosition(
+							   
+						   ).addTo(map);
+						   
+							map.addControl(new L.Control.LinearMeasurement({
+								   unitSystem: 'metric',
+								   color: '#055252',
+								   type: 'line',
+							   }));
+					
+					
+ /* Gojson data ---------------------------------------------------------------------------------------*/
+ //city layer
+ $.getJSON("./data/cities.geojson", function (cities) {
+
+
+var citiesLayer = L.geoJson(cities, {
+  pointToLayer: function (feature, latlng) {
+	
+	var marker = L.circleMarker(latlng, {
+	  radius: 14, 
+	  fillColor: "#055252", 
+	  color: "white", 
+	  weight: 1, 
+	  opacity: 1, 
+	  fillOpacity: 0.8 
+	});
+
+	marker.bindPopup("<strong>Name:</strong> " + feature.properties.CITY_NAME + "<br> Country: " + feature.properties.CNTRY_NAME + "<br> Status: " + feature.properties.STATUS + "<br> Admin Name: " + feature.properties.ADMIN_NAME);
+
+	return marker;
+  },
+	// Filter only cities that are national or provincial capitals
+
+  filter: function (feature, layer) {
+	return feature.properties.STATUS === "National and provincial capital";
+  }
+});
+
+map.addLayer(citiesLayer);
+});
+
+
+
+
+// admin level 1 data
+
+  $.getJSON("./data/admin1.geojson", function(admin1) {
+  var admin1 = L.geoJson(admin1, {
+    style: function(feature) {
+      return {
+        fillColor: "transparent", 
+        color: "black", 
+        weight: 1, 
+		dashArray: "2, 5",
+      };
+    },
+    onEachFeature: function( feature, layer ){
+      layer.bindPopup( "<strong>Country: " + feature.properties.admin0Name + "<br></strong>Admin1: " + feature.properties.admin1Name )
+    },
+  });
+
+  var labelMarkers = L.layerGroup();
+
+admin1.eachLayer(function(layer) {
+  var center = layer.getBounds().getCenter();
+
+  var labelMarker2 = L.marker(center, {
+	icon: L.divIcon({
+	  className: 'label-admin1',
+	  html: layer.feature.properties.admin1Name, 
+	  iconSize: [100, 40] 
+	})
+  });
+
+  labelMarkers.addLayer(labelMarker2);
+});
+
+map.addLayer(admin1);
+map.addLayer(labelMarkers);
+});
+
+
+   // country data
+
+$.getJSON("./data/sah_admin0_ocha.geojson", function(country) {
+  var country = L.geoJson(country, {
+    style: function(feature) {
+      return {
+        fillColor: "grey", 
+        color: "black", 
+        weight: 2, 
+      };
+    },
+    onEachFeature: function( feature, layer ){
+      layer.bindPopup( "<strong>Country: " + feature.properties.admin0Name)
+    },
+  });
+  
+  var labelMarkers = L.layerGroup();
+
+country.eachLayer(function(layer) {
+  var center = layer.getBounds().getCenter();
+
+  var labelMarker = L.marker(center, {
+	icon: L.divIcon({
+	  className: 'polygon-label',
+	  html: layer.feature.properties.admin0Name, 
+	  iconSize: [100, 40] 
+	})
+  });
+
+  labelMarkers.addLayer(labelMarker);
+});
+
+map.addLayer(country);
+map.addLayer(labelMarkers);
+});
+
+var overlays = {};
+
+
+
+
+  // roads data
+  $.getJSON("./data/roads.geojson", function(roads) {
+  var roadStyle = {
+    color: "grey", 
+    weight: 1 
+  };
+
+  var roadsLayer = L.geoJson(roads, {
+    style: roadStyle,
+  }).addTo(map);
+});
+
+
+
+
+
+////// locations 
+// Custom icons for each type of place
+var lakeIcon = L.icon({
+  iconUrl: './image/lake.png',
+  iconSize: [50, 50]
+});
+
+var mountainIcon = L.icon({
+  iconUrl: './image/mountain-range.PNG',
+  iconSize: [50, 50]
+});
+
+var mosqueIcon = L.icon({
+  iconUrl: './image/mosque.png',
+  iconSize: [30, 30]
+});
+
+var siteIcon = L.icon({
+  iconUrl: './image/map-marker.PNG',
+  iconSize: [40, 40]
+});
+
+var natureIcon = L.icon({
+  iconUrl: './image/natur.PNG',
+  iconSize: [30, 30]
+});
+
+
+
+
+
+// Locations data for each type of place grouped by country
+
+
+var locationsByCountry = {
+  "Chad": [
+    ["Emi Koussi", 19.833000, 18.500000, "Emi Koussi is a high pyroclastic shield volcano that lies at the south end of the Tibesti Mountains in the central Sahara of northern Chad. It is the highest mountain in Chad, and the highest in the Sahara. The volcano is one of several in the Tibesti massif, and reaches 3445 m in altitude, rising 2.3 km above the surrounding sandstone plains. The volcano is 60 by 80 km wide", mountainIcon, 
+	"./image/emikoussi.png"],
+    ["Aloba Arch", 16.741684317412442, 22.23961108065153, "Aloba Arch is the name of a natural arch located in Chad. Large natural arches are somewhat rare outside the southern and western regions of China and the Colorado Plateau of the southwest United States.", siteIcon,"./image/aloba.jpg" ],
+    ["Tibetsi Mountains", 20.780760901946145, 18.05218833257806, "The Tibesti Mountains are the largest and highest range in the Central Sahara. They consist of a series of inactive volcanoes and cover an area of approximately 100,000 square kilometers. Located in the very north of Chad, the Tibesti Mountains are among the most remote ranges in the world.", mountainIcon, "./image/tibetsi.jpg"],
+	["Zakouma National Park", 10.837742351233745, 19.655469765790958, "The first national park in Chad and home to lions, elephants, and other animals in vast terrain.", natureIcon, "./image/zakouma.png"],
+    ["Lake Chad", 13.104016554221694, 14.537654624273959, "Lake Chad (Kanuri: Sádǝ, French: Lac Tchad) is a freshwater lake located at the junction of Nigeria, Niger, Chad and Cameroon in central and western Africa. It is also an important wetland ecosystem in West Africa.", lakeIcon, "./image/Lake_Chad_satellite.jpg"],
+    ["Lakes of Ounianga", 19.060048799466408, 20.49321409508185, "Lakes of Ounianga are a series of lakes in the Sahara Desert, in North-Eastern Chad, occupying a basin in the mountains of West Tibesti and Ennedi East.", lakeIcon, "./image/ounianga.png"],
+    ["Guelta d'Archei", 16.90470956350251, 21.774986735755164, "One of the most famous gueltas in the Sahara. It is located in the Ennedi Plateau , in north-eastern Chad , south-east of the town of Fada.", siteIcon, "./image/guelta.png"],
+    ["Ennedi-Massif", 17.541780884711528, 21.866470771043126, "UNESCO World Heritage Site.Today the sandstone plateau consists of a rock labyrinth, bizarre rock formations and gorges and valleys up to 200 metres deep, through which narrow rivers and streams still run.", mountainIcon, "./image/ennedi.png"],
+
+
+],
+  "Mali": [
+    ["Grand Mosquée de Djenné", 13.923600029621495, -4.337784997522803, "Crowned at the center by the adobe rises of one fascinating Great Mosque, it is known for its distinctive mud-brick architecture and long history as a spot on the old caravan routes across the Sahel and Sahara", mosqueIcon,"./image/djenne.jpg" ],
+    ["Timbouctou", 16.76724206390982, -2.9974125244543273, "Home of the prestigious Koranic Sankore University and other madrasas, Timbuktu was an intellectual and spiritual capital and a centre for the propagation of Islam throughout Africa in the 15th and 16th centuries", siteIcon,"./image/timbuctu.jpg" ],
+	["Bandiagara Cliffs", 14.420755810717374, -2.948206439735565, "The 150-kilometer-long sandstone escarpment has served as home to the Dogon people, believed to be one of the oldest surviving African cultures.", mountainIcon,"./image/bandiagara.jpg" ],
+	["Tomb of Askia", 16.276437595905367, 0.2302723617040529, "The late 15th century pyramidal tomb and mosque were built by Askia Mohamed for the emperors of the Songhai empire.", siteIcon,"./image/tomb_askia.jpg" ],
+	["La Dune Rose", 16.324002951230423, 0.13577985081799948, "known locally as Koïma, a wonderful sand dune on the right bank of the Niger, visible from the town of gao", natureIcon,"./image/dune_rose.jpg" ],
+	["Bamako Grand Mosque", 12.6530665049457, -7.246507622304228, "Located in the city centre of Bamako, Mali. Built on the site of a pre-colonial mud-brick mosque, the current mosque was built through funding from the Saudi Arabian government at the end of the 1970s.", mosqueIcon,"./image/mosque_bamako.jpg" ],
+	["National Park Boucle du Baoule", 13.849841627597314, -8.792758852636927, "Lies in western Mali, in Kayes Region and Koulikoro Region, set up in 1982. It has an area of 25,330 km² but has little large wildlife. The park is known for its prehistoric rock art and tombs. It is part of the UNESCO Boucle du Baoulé Biosphere Reserve, along with Badinko Faunal Reserve to the southwest, Fina Faunal Reserve to the south, and Kongossambougou Faunal Reserve to the northeast.", natureIcon,"./image/boucle_park.jpg" ],
+
+],
+
+"Niger": [
+    ["Agadez Historic Center", 16.974629269030075, 7.98622175145439, "The Agadez Historic Center was inscribed as a cultural heritage site in 2013. Agadez is a historic city situated on the southern edge of the Sahara Desert", siteIcon,"./image/agadez.jpg" ],
+    ["Air And Ténéré Natural Reserves", 18.000389613425423, 9.000910630183608, "The Aïr and Ténéré Natural Reserves is a natural heritage site in Niger, inscribed in 1991. The reserve encompasses spectacular scenery of the Aïr Mountains and the Ténéré desert. The Aïr Mountains are nine large granite massifs while the desert has majestic dune systems, valleys, canyons, cliffs, plateaus, and seasonal wetlands", natureIcon,"./image/tenere.jpg" ],
+	["W National Park Of Niger", 12.472118396731007, 2.67318272291348, "The park stretches through three main biogeographical regions, namely Sahelian, Sudanese and Sudano-Guinean. It derives its environmental significance from representing a complete example of the West African savanna woodland ecosystem. The park stretches from Niger to Burkina Faso and Benin and is collectively managed by the three governments.", natureIcon,"./image/w.jpg" ],
+	["Sultan's Palace & Zinder", 14.007618045034901, 9.696130857639792, "Zinder old town with Sultan's palace.", siteIcon,"./image/zinder_palace.jpg" ],
+	["Niamey Grand Mosque", 13.522372161433278, 2.133608947482297, "Mosque located in Niger's capital, Niamey.", mosqueIcon,"./image/niamey_mosque.jpg" ],
+
+],
+
+"Nigeria": [
+    ["Gurara Waterfalls", 9.64483044115389, 9.09788649248132, "Place for hiking and swimming", lakeIcon,"./image/gurara.jpg" ],
+    ["Yankari National Park", 9.756916459478981, 10.509709983994476, "Located in Bauchi in Northern Nigeria, Yankari Game Reserve is the country’s richest wildlife oasis.  Yankari Game Reserve contains the largest surviving elephant population in Nigeria and one of the largest remaining in West Africa.  It inhabits important populations of lion, buffalo, hippo, and other endangered animals. However, sighting the animals is not so easy, as the vegetation in the area is quite dense.", natureIcon,"./image/yankari.jpg" ],
+	["Idanre Hills", 7.10333602274154, 5.1033800552924085, "Idanre hill located in Ondo State in Nigeria.Idanre is rich with diverse cultures and traditions, rare artifacts, things, and places of cultural and historical significance", mountainIcon,"./image/idanre.jpg" ],
+	["Ogbunike Cave", 6.182457123268737, 6.845665380432781, "Located at Ogbunike, a town in Oyi Local Government Area of Anambra State, Nigeria.", natureIcon,"./image/ogbunike.jpg" ],
+	["Sukur Cultural Landscape", 11.577448734955148, 13.926345528953338, "Sukur is located in Madagali area of Adamawa State in northeastern Nigeria. The landscape has terraces on farmlands, stone-paved walkways, and dry-stone structures. On the landscape is the palace of the chief and other sacred remains that express the spiritual and material culture of an ancient society, and it is also representative of a former flourishing iron industry", siteIcon,"./image/sukur.jpg" ],
+
+],
+
+"Cameroun": [
+    ["Dja Faunal Reserve", 3.1501071230833806, 13.000375505573606, " One of the largest and best-protected rainforests in Africa, with 90% of its area left undisturbed. Almost completely surrounded by the Dja River, which forms a natural boundary, the reserve is especially noted for its biodiversity and a wide variety of primates. ", natureIcon,"./image/dja_funal.jpg" ],
+    ["Sangha Trinational", 2.9123190744170726, 16.55451441173137, "Situated in the north-western Congo Basin, where Cameroon, Central African Republic and Congo meet, the site encompasses three contiguous national parks totalling around 750,000 ha", natureIcon,"./image/sangha.jpg" ],
+	["Bafut Fon's Palace", 6.089065044349651, 10.113944153136787, "The palace of the Fon of Bafut or Ntoh is a major tourist attraction and is listed in the 2006 World Monuments Watch list of the 100 most endangered sites of 2006 by the World Monuments Fund", siteIcon,"./image/fon_bafut.jpg" ],
+	["Foumban Royal Palace & Museum Cave", 5.73226450802217, 10.901130764773093, "Palace and the Museum of the Sultanate of Foumban.", siteIcon,"./image/foumban.jpg" ],
+	["Londji Village & Beach", 3.244094261785738, 9.965837301384303, "Londje is an ecotourism site and features white sand beaches, fish market, rivers and mangroves to do boat tours and excursions", natureIcon,"./image/londji.jpg" ],
+
+],
+
+"Mauretania": [
+    ["Monolith of Ben Amara", 21.2250419746684, -13.654878080418873, " Ben Amera is Africa's largest monolith rising 633m (2027ft) above the desert floor. It's the world's second largest monolith only behind Uluru, in Australia. ", mountainIcon,"./image/ben_amara.jpg" ],
+    ["Ancient Ksour of Ouadane", 20.932365253683596, -11.618311916104851, "These Ksours are trading and religious centres along the ancient Sahara trade routes. These four towns date from the 13th and 14th century.", siteIcon,"./image/ksours.jpg" ],
+	["Koumbi Saleh Ancient Ruins", 15.926464822620128, -10.307525152802341, "Koumbi Saleh the site of an ancient city in West Africa, north of the city of Nioro.", siteIcon,"./image/koumbi.jpg" ],
+	["Banc d'Arguin National Park", 20.682171248357985, -15.699184097799128, "The World Heritage Site is a major site for migratory birds and breeding birds, including flamingos, pelicans and terns.", natureIcon,"./image/bank_arguin.jpg" ],
+
+],
+
+"Senegal": [
+    ["Niokolo-Koba National Park", 13.083234890369809, -12.837316339969844, " Located in a well-watered area along the banks of the Gambia river with rich fauna, among them Derby elands (largest of the antelopes), chimpanzees, lions, leopards and a large population of elephants, as well as many birds, reptiles and amphibians. ", natureIcon,"./image/niokolo.jpg" ],
+    ["Bassari Country", 12.551116146888555, -12.842366296234706, "The Bassari landscape is marked by terraces and rice paddies, interspersed with villages, hamlets and archaeological sites", siteIcon,"./image/bassari.jpg" ],
+	["Saloum Delta", 13.836011458009985, -16.497495394939428, "Delta encompassing ocer 200 islands and islets, mangrove forests and marine environment.", lakeIcon,"./image/saloum.jpg" ],
+	["Dakar Railway Station", 14.675819131411535, -17.433064729115657, "Dakar Railway Station.", siteIcon,"./image/dakar_railway.jpg" ],
+
+],
+
+"Burkina Faso": [
+    ["Ruins of Loropéni", 10.25014439639834, -3.582551469835089, " 11,130m2 property and UNESCO World Heritage Site.The settlement was occupied by the Lohron or Koulango peoples, who controlled the extraction and transformation of gold in the region when it reached its apogee from the 14th to the 17th century ", siteIcon,"./image/loropeni.jpg" ],
+    ["Grand Mosque de Bani", 13.724569336773211, -0.16773600971803815, "", mosqueIcon,"./image/mosque_bani.jpg" ],
+	["Marché de Sankariare", 12.377894855674459, -1.5282215382801165, "Popular Market Place in Ouagadougou", siteIcon,"./image/sankariare.jpg" ],
+	["Royal Palace of Tiebele", 11.100439668739282, -0.9638859560581099, "The Royal Court of Tiébélé represents a form of vernacular architecture and traditions from the 16th century. Is part of the Tentative list of Burkina Faso in order to qualify for inclusion in the World Heritage List", siteIcon,"./image/tiebele.jpg" ],
+
+],
+
+"The Gambia": [
+    ["Stone Circles of Senegambia", 13.695643202836782, -15.535306309432475, " UNESCO World Heritage Site. The site consists of four large groups of stone circles that represent an extraordinary concentration of over 1,000 monuments in a band 100 km wide along some 350 km of the River Gambia ", siteIcon,"./image/senegambia.jpg" ],
+    ["Kunta Kinteh Island", 13.317901656485983, -16.361534446139586, "Unesco World Heritage Site, located on an Island of the Gambian coast.", siteIcon,"./image/kunta.jpg" ],
+
+
+],
+
+
+
+};
+
+// Object to hold separate layer groups for each country for filtering
+var countryGroups = {};
+
+// Function to create markers and add them to the respective groups
+function addMarkersToCountryGroup(locations, country) {
+  if (!countryGroups[country]) {
+    countryGroups[country] = L.layerGroup();
+  }
+
+  var group = countryGroups[country];
+
+  for (var i = 0; i < locations.length; i++) {
+    var location = locations[i];
+    var marker = new L.marker([location[1], location[2]], { icon: location[4] });
+
+    //  HTML content for  popup with the image and description
+    var popupContent = "<strong>" + location[0] + "</strong><br>" + location[3];
+    if (location[5]) {
+      popupContent += "<br><img src='" + location[5] + "' width='300'>";
+    }
+
+    marker.bindPopup(popupContent).addTo(group);
+  }
+}
+
+// Add markers to the respective country group
+for (var country in locationsByCountry) {
+  if (locationsByCountry.hasOwnProperty(country)) {
+    var locations = locationsByCountry[country];
+    addMarkersToCountryGroup(locations, country);
+  }
+}
+
+// Add the country groups to the map
+for (var country in countryGroups) {
+  if (countryGroups.hasOwnProperty(country)) {
+    var group = countryGroups[country];
+    map.addLayer(group);
+  }
+}
+
+
+</script>
+
+
+ 
+
+
+<script>
+
+// define countries and icons for layer filtering operation
+
+var countries = ["Chad", "Mali","Mauretania", "Burkina Faso", "Senegal", "Cameroun", "Nigeria", "Niger", "The Gambia"];
+var icons = [mountainIcon, siteIcon, natureIcon, mosqueIcon, lakeIcon];
+
+
+
+// Filter function (filter-button created earlier html)
+var showAllButton = document.createElement("button");
+showAllButton.textContent = "Show All";
+showAllButton.addEventListener("click", onShowAllClick);
+document.getElementById("filter-buttons").appendChild(showAllButton);
+
+for (var i = 0; i < countries.length; i++) {
+  var button = document.createElement("button");
+  button.textContent = countries[i];
+  button.addEventListener("click", onCountryFilterClick);
+  // Add the button to the HTML element with the id "filter-buttons"
+  document.getElementById("filter-buttons").appendChild(button);
+}
+
+// Function to handle the "Show All" button click
+function onShowAllClick() {
+  var allMarkers = L.featureGroup(); // Create an empty feature group to hold all markers
+
+  // Clear all markers from the map
+  for (var group in countryGroups) {
+    if (countryGroups.hasOwnProperty(group)) {
+      map.removeLayer(countryGroups[group]);
+      // Add all country markers to the 'allMarkers' feature group
+      var countryMarkers = countryGroups[group].getLayers();
+      for (var i = 0; i < countryMarkers.length; i++) {
+        allMarkers.addLayer(countryMarkers[i]);
+      }
+    }
+  }
+
+  // Show all markers on the map
+  map.addLayer(allMarkers);
+
+  // Fit the map to display all markers using the fitBounds() method
+  map.fitBounds(allMarkers.getBounds());
+}
+
+// Function to handle the filter button click for each country
+function onCountryFilterClick(event) {
+  var selectedCountry = event.target.textContent.trim();
+  filterMarkersByCountry(selectedCountry);
+}
+
+// Function to filter markers by country
+function filterMarkersByCountry(country) {
+  // Clear all markers from the map
+  for (var group in countryGroups) {
+    if (countryGroups.hasOwnProperty(group)) {
+      map.removeLayer(countryGroups[group]);
+    }
+  }
+
+  // Create a new feature group for the selected country's markers
+  var selectedCountryMarkersGroup = L.featureGroup();
+
+  // Add markers for the selected country to the feature group
+  var selectedCountryMarkers = countryGroups[country].getLayers();
+  for (var i = 0; i < selectedCountryMarkers.length; i++) {
+    selectedCountryMarkersGroup.addLayer(selectedCountryMarkers[i]);
+  }
+
+  // Show markers for the selected country
+  map.addLayer(selectedCountryMarkersGroup);
+
+  // Fit the map to display the markers of the selected country using the fitBounds() method
+  map.fitBounds(selectedCountryMarkersGroup.getBounds());
+}
+
+
+
+
+//  legend using HTML
+var legend = L.control({ position: 'bottomright' });
+
+legend.onAdd = function (map) {
+  var div = L.DomUtil.create('div', 'legend');
+  div.innerHTML +=
+    '<h4>Legend</h4>' +
+    	'<div><i class="country-layer"></i> Country Boundaries </div>' +
+'<div><i class="admin1-layer"></i> Admin Level 1 Boundaries </div>' +
+    '<div class="line-legend"><svg width="16" height="16"><line x1="0" y1="8" x2="16" y2="8" style="stroke: grey; stroke-width: 2;" /></svg >  Road</div>' +
+	'<div class="circle-legend"><svg width="16" height="16"><circle cx="8" cy="8" r="8" fill="#055252" stroke="white" stroke-width="1 " /></svg> National and provincial capital</div>' +
+    '<div class="circle-legend"><img src="./image/map-marker.png" width="16" height="16" /> Historic Sites</div>' +
+	'<div class="circle-legend"><img src="./image/mountain-range.png" width="16" height="16" /> Mountains</div>' +
+    '<div class="circle-legend"><img src="./image/lake.png" width="16" height="16" /> Lakes </div>' +
+    '<div class="circle-legend"><img src="./image/natur.png" width="16" height="16" /> Parks & Nature Sites </div>' +
+
+    '<div class="circle-legend"><img src="./image/mosque.png" width="16" height="16" /> Mosque</div>';
+
+  return div;
+};
+
+
+
+// Add the custom legend to the map
+legend.addTo(map);
+
+			
+			</script>				
+					
+			
+					</section>
+
+
+
+
+				<!-- Two -->
+					<section id="two" class="wrapper alt style2">
+						<section class="spotlight">
+							<div class="image"><img src="images/sahel.jpg" alt="sahel" /></div><div class="content">
+								
+								<h2>The Sahel<br />
+									Landscape </h2>
+								<p>Southern Sahel: The southern areas of the Sahel, closer to the Sahelian-Sudanese transition zone, have relatively more abundant water resources and fertile soils. This region supports more intensive agriculture, including the cultivation of crops like millet, sorghum, maize, and rice. Livestock farming is also common, benefiting from better grazing conditions. As a result, the southern Sahel tends to have higher population densities and more significant urban centers.
+
+									Northern Sahel: The northern parts of the Sahel, closer to the Sahara Desert, have a more arid and semi-arid climate, with limited access to water and less fertile soils. Consequently, economic activities in these areas are generally more limited, with fewer opportunities for agriculture and pastoralism. Nomadic or semi-nomadic herding of livestock, particularly camels, is often practiced as a means of livelihood. Due to the harsher environment, population densities are lower in the northern Sahel (Wikipedia)
+
+
+									.</p>
+
+									<h4>Head to the sub-pages available under the "layer menu" to access more  maps .</h4>
+									</strong> </p>
+
+							</div>
+						</section>
+			
+							
+
+		
+				
+
+				<!-- Footer -->
+					<footer id="footer">
+						
+						<ul class="copyright">
+							<li>&copy; 2023CK</li><li>Adapted from: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
