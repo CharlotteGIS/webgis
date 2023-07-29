@@ -1,5 +1,5 @@
 # Interactive web maps
-The repository contains a website containing different interactive web maps created with different tools to practice visualization and web mapping skills.
+The repository contains a website containing several interactive web maps created with different tools and languages to practice visualization and web mapping skills.
 Main focus during the creation of the website and maps has been on practicing visualization and web mapping skills rather than on thorough research.
 
 
